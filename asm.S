@@ -21,6 +21,9 @@
 .global _start
 
 _start:
+    /* First of all, set up some preliminary trap handling, in case initialization goes wrong */
+    la t0, _start_trap_pre_init // This symbol by default resolves to `abort`
+    csrw mtvec, t0
     /* Jump to the absolute address defined by the linker script. */
     // for 32bit
     .if __riscv_xlen == 32
